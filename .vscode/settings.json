@@ -1,0 +1,14 @@
+{
+    "cmake.mingwSearchDirs": [
+        "C:\\mingw-w64\\mingw64\\bin"
+    ],
+    "cmake.generator": "MinGW Makefiles",
+    "cmake.configureSettings": {
+        "CMAKE_TOOLCHAIN_FILE": "c:/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    },
+    "files.associations": {
+        "random": "cpp",
+        "iostream": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}
