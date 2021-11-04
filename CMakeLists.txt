@@ -5,6 +5,11 @@ set( CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake" )
 set( OpenCV_DIR "C:/vcpkg/installed/x64-windows/share/opencv" )
 
 find_package( OpenCV REQUIRED ) # locate OpenCV in system
+
 include_directories( ${OpenCV_INCLUDE_DIRS} ) # provide library headers
-add_executable(octocomm main.cpp src/octocomm.h src/windows/octocomm_win.cpp src/windows/octocomm_win.h)
+FILE(GLOB MyCSources src/windows/*.hpp src/windows/*.h src/octocomm.h src/octocomm.cpp)
+
+add_executable(octocomm main.cpp ${MyCSources})
+
+
 target_link_libraries( octocomm ${OpenCV_LIBS})

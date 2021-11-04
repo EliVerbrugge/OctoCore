@@ -6,7 +6,7 @@ import socket
 import sys
 
 HOST = "127.0.0.1"  # Symbolic name, meaning all available interfaces
-PORT = 8888  # Arbitrary non-privileged port
+PORT = 12007  # Arbitrary non-privileged port
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
