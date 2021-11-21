@@ -2,6 +2,7 @@ import random
 from socket import *
 import struct
 import select
+
 # Create a UDP socket
 # Notice the use of SOCK_DGRAM for UDP packets
 serverSocket = socket(AF_INET, SOCK_DGRAM)

@@ -2,10 +2,14 @@
 
 OctoComm::OctoComm()
 {
+    // Create the UDP Socket
     udp_node = UDPSocket();
+
+    // Start the reading thread
+    read_thread_obj = std::thread(&OctoComm::read, this);
 }
 
-bool OctoComm::send_to(char *host, int port, void *buf, size_t len, bool reliable)
+bool OctoComm::write_to(char *host, int port, void *buf, size_t len, bool reliable)
 {
     if (!reliable)
     {
@@ -16,6 +20,26 @@ bool OctoComm::send_to(char *host, int port, void *buf, size_t len, bool reliabl
     {
         return false;
     }
+}
+
+void OctoComm::set_callback(std::string topic, callback clbk)
+{
+    // Set the entry for the topic to the desired callback
+    callbacks[topic] = clbk;
+    return;
+}
+
+void OctoComm::read()
+{
+    char *data = udp_node.read();
+    // TODO: call octocomm_message parse() here
+
+    // TODO: check for topic in callbacks, and call with packet if appropriate
+}
+
+void OctoComm::close()
+{
+    read_thread_obj.join();
 }
 
 /*
