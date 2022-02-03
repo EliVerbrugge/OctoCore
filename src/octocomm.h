@@ -9,6 +9,9 @@
 #include <map>
 #include <thread>
 #include <string>
+#include <atomic>
+#include <iostream>
+#include <chrono>
 
 typedef void (*callback)(OctoCommMessage); // function pointer type that takes a message
 
@@ -18,6 +21,7 @@ private:
     UDPSocket udp_node;
     std::map<std::string, callback> callbacks;
     std::thread read_thread_obj;
+    bool stop_;
 
 public:
     OctoComm();
@@ -26,7 +30,7 @@ public:
     bool OctoComm::write_to(char *host, int port, void *buf, size_t len, bool reliable = true);
 
     // Method to run a background thread that grabs all TCP/UDP packets and calls the respective callbacks
-    void OctoComm::read();
+    void OctoComm::read(bool &stop_, int sock);
 
     // Method to set a desired callback for a certain topic
     // NOTE: currently callbacks:topics is a 1:1 relationship
