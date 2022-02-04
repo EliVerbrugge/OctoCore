@@ -79,23 +79,18 @@ public:
         return select(0, &fds, 0, 0, &timeout);
     }
 
-    char *read(int sock)
+    void read(int sock, char *recvBuf, int len)
     {
-        char RecvBuf[1024];
-        int BufLen = 1024;
-        memset(RecvBuf, '/0', BufLen);
-
         struct sockaddr_in SenderAddr;
         int SenderAddrSize = sizeof(SenderAddr);
 
         //Clear the buffer to make sure there was no old data
         iResult = recvfrom(sock,
-                           RecvBuf, BufLen, 0, (SOCKADDR *)&SenderAddr, &SenderAddrSize);
+                           recvBuf, len, 0, (SOCKADDR *)&SenderAddr, &SenderAddrSize);
         if (iResult == SOCKET_ERROR)
         {
             wprintf(L"recvfrom failed with error %d\n", WSAGetLastError());
         }
-        return RecvBuf;
     }
 
     void send_to(char *host, void *buf, size_t len)

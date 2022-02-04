@@ -35,12 +35,15 @@ void OctoComm::set_callback(std::string topic, callback clbk)
 void OctoComm::read(bool &stop_, int sock)
 {
     std::cout << "Thread";
-    char *data = new char();
+    char RecvBuf[1024];
+    int BufLen = 1024;
+
     while (!stop_)
     {
-        data = udp_node.read(sock);
+        memset(RecvBuf, '/0', BufLen);
+        udp_node.read(sock, RecvBuf, BufLen);
 
-        std::cout << data << std::endl;
+        std::cout << RecvBuf << std::endl;
         // TODO: call octocomm_message parse() here
         // TODO: check for topic in callbacks, and call with packet if appropriate
     }
