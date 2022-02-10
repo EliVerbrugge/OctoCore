@@ -12,6 +12,7 @@
 #include <atomic>
 #include <iostream>
 #include <chrono>
+#include <vector>
 
 typedef void (*callback)(OctoCommMessage); // function pointer type that takes a message
 
@@ -19,7 +20,7 @@ class OctoComm
 {
 private:
     UDPSocket udp_node;
-    std::map<std::string, callback> callbacks;
+    std::map<std::string, std::vector<callback> clbk> callbacks;
     std::thread read_thread_obj;
     bool stop_;
 
@@ -33,18 +34,11 @@ public:
     void OctoComm::read(bool &stop_, int sock);
 
     // Method to set a desired callback for a certain topic
-    // NOTE: currently callbacks:topics is a 1:1 relationship
+    // Will append clbk to list of callbacks for the topic
     void OctoComm::set_callback(std::string topic, callback clbk);
 
-    // Method to clean up OctoComm and its children
+    // Method to clean up OctoComm and any associated threads
     void OctoComm::close();
-
-    /*
-    // Connects a socket to the desired address, with default port
-    SOCKET connect(char *address);
-    // Connects a socket to the desired address at designated port
-    SOCKET connect(char *address, char *port);
-    */
 };
 
 #endif OCTOCOMM_H

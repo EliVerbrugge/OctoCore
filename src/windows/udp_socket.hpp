@@ -2,8 +2,6 @@
 #define UDP_SOCKET_H
 
 #include "win_sockets.h"
-#include <iostream>
-#include <thread>
 
 const int BUF_LEN = 500;
 
@@ -13,10 +11,7 @@ private:
     struct sockaddr_in SenderAddr;
     int SenderAddrSize = sizeof(SenderAddr);
     struct sockaddr_in RecvAddr;
-    unsigned short Port = 27015;
     int RecvSocket;
-
-    std::thread read_thread_obj;
     WSADATA wsaData;
     int iResult = 0;
 
@@ -41,7 +36,7 @@ public:
         //-----------------------------------------------
         // Bind the socket to any address and the specified port.
         RecvAddr.sin_family = AF_INET;
-        RecvAddr.sin_port = htons(Port);
+        RecvAddr.sin_port = htons(DEFAULT_UDP_PORT);
         RecvAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
         char yes = 1;
